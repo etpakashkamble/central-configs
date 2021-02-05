@@ -1,0 +1,25 @@
+version: "3"
+services:
+  notification-engine:
+    image: etpakashkamble/notification-engine
+    container_name: notification-engine
+    network_mode: "host"
+    expose:
+      - "7005"
+    ports:
+      -  "7005:7005"
+    logging: &logging
+      driver: fluentd
+      options:
+        fluentd-address: dev-fluentd.ordazzle.com:10091
+  comm-server:
+    image: etpakashkamble/comm-server
+    container_name: comm-server
+    network_mode: "host"
+    expose:
+      - "7006"
+    ports:
+      - "7006:7006"
+    logging:
+      <<: *logging
+        
